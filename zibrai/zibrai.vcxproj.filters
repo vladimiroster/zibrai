@@ -32,5 +32,14 @@
     <ClInclude Include="scanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gen_ast.py">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="astprinter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

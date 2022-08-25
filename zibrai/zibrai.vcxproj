@@ -155,7 +155,10 @@
     <ClCompile Include="zibrai.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="astprinter.h" />
     <ClInclude Include="error.h" />
+    <ClInclude Include="gen_ast.py" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="scanner.h" />
     <ClInclude Include="token.h" />
   </ItemGroup>

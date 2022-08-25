@@ -11,13 +11,13 @@ class Scanner {
 public:
   Scanner(std::string source) : _source(source) {}
 
-  std::list<Token> scanTokens() {
+  std::vector<Token*> scanTokens() {
     while (!isAtEnd()) {
       _start = _current;
       scanToken();
     }
 
-    _tokens.emplace_back(Token(Token::Type::EoF, "", "", _line));
+    _tokens.emplace_back(new Token(Token::Type::EoF, "", "", _line));
     return _tokens;
   }
 
@@ -87,7 +87,7 @@ private:
 
   void addToken(Token::Type type, std::string literal = "") {
     std::string text = _source.substr(_start, _current - _start);
-    _tokens.emplace_back(Token(type, text, literal, _line));
+    _tokens.emplace_back(new Token(type, text, literal, _line));
   }
 
   bool match(char expected) {
@@ -170,7 +170,7 @@ private:
   }
 
   const std::string _source;
-  std::list<Token> _tokens;
+  std::vector<Token*> _tokens;
   size_t _start = 0;
   size_t _current = 0;
   size_t _line = 1;

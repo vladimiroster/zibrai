@@ -9,19 +9,24 @@
 #include "error.h"
 #include "scanner.h"
 #include "astprinter.h"
+#include "parser.h"
 
 // Auto generated
 #include "Expr.h"
+
+// TODO: smart pointers
 
 void run(const std::string& source) {
   // Print the tokens
   Scanner scanner(source);
   auto tokens = scanner.scanTokens();
 
-  // Tokenizing w.r.t. space ' '
-  for (auto token : tokens) {
-    std::cout << token.toString() << std::endl;
-  }
+  Parser parser(tokens);
+  Expr* expression = parser.parse();
+
+  if (g_hadError) return;
+
+  std::cout << AstPrinter().print(expression) << std::endl;
 }
 
 void runPrompt() {
@@ -45,29 +50,8 @@ void runFile(const std::string& path) {
   if (g_hadError) exit(65);
 }
 
-
-void testPrinter() {
-  // TODO: change to smart pointers
-  Token tok(Token::MINUS, "-", "", 1);
-  Literal lit1("123");
-  Token star(Token::STAR, "*", "", 1);
-  Literal lit2("45.67");
-  Grouping grp(&lit2);
-
-  Unary un(&tok, &lit1);
-
-  Binary bin(
-    &un,
-    &star,
-    &grp);
-
-  std::cout<< AstPrinter().print(&bin) << std::endl;
-}
-
 int main(int argc, char* argv[])
 {
-  testPrinter();
-  return 0;
   if (argc > 1) {
     std::cerr << "Usage: zibrai [script]" << std::endl;
     exit(64);
