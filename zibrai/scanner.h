@@ -122,7 +122,7 @@ private:
     advance(); // The closing '"'
 
     // Trim the surrounding quotes.
-    std::string value = _source.substr(_start + 1, _current - _start - 1);
+    std::string value = _source.substr(_start + 1, _current - _start - 2);
     addToken(Token::Type::STRING, value);
   }
 

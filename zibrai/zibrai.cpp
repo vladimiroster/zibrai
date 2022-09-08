@@ -10,11 +10,16 @@
 #include "scanner.h"
 #include "astprinter.h"
 #include "parser.h"
+#include "Interpreter.h"
 
 // Auto generated
 #include "Expr.h"
 
 // TODO: smart pointers
+
+// TODO: class to encompass zibrai?
+
+static Interpreter g_interpreter;
 
 void run(const std::string& source) {
   // Print the tokens
@@ -27,6 +32,7 @@ void run(const std::string& source) {
   if (g_hadError) return;
 
   std::cout << AstPrinter().print(expression) << std::endl;
+  g_interpreter.interpret(expression);
 }
 
 void runPrompt() {
@@ -48,6 +54,7 @@ void runFile(const std::string& path) {
   buffer << ifs.rdbuf();
   run(buffer.str());
   if (g_hadError) exit(65);
+  if (g_hadRuntimeError) exit(70);
 }
 
 int main(int argc, char* argv[])
